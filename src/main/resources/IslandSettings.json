@@ -1,0 +1,10 @@
+{
+  "height" : 3,
+  "length" : 10,
+  "maxGrassOnCell" : 200,
+  "islandResidents" : [ "animals.carnivores.Wolf", "animals.herbivores.Sheep" ],
+  "maxCellPopulation" : {
+    "animals.carnivores.Wolf" : 30,
+    "animals.herbivores.Sheep" : 140
+  }
+}

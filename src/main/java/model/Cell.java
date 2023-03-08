@@ -1,12 +1,10 @@
 package model;
 
 import abstraction.Animal;
-import abstraction.Entity;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Cell {
-    List<Cell> neighboringCells;
-    Set<Animal> inhabitans;
+    List<Cell> neighboringCells = new ArrayList<>();
+    Map<Class<? extends Animal>, Set<Animal>> inhabitants = new HashMap<>();
 }

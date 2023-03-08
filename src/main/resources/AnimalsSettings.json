@@ -1,0 +1,18 @@
+{
+  "animalSettingsMap" : {
+    "animals.carnivores.Wolf" : {
+      "maxWeight" : 50.0,
+      "maxSpeed" : 3,
+      "eatProbability" : {
+        "animals.herbivores.Sheep" : 70
+      }
+    },
+    "animals.herbivores.Sheep" : {
+      "maxWeight" : 70.0,
+      "maxSpeed" : 3,
+      "eatProbability" : {
+        "plants.Grass" : 100
+      }
+    }
+  }
+}
