@@ -3,8 +3,11 @@ package model;
 import abstraction.Animal;
 import animals.Animals;
 import factories.AnimalFactory;
+import factories.GrassFactory;
 import managers.SettingsManager;
+import plants.Grass;
 import settings.IslandSettings;
+import utils.RandomGenerator;
 
 import java.util.HashSet;
 
@@ -15,6 +18,7 @@ public class Island {
         fillIslandWithCells();
         linkNeighboringCells();
         fillIslandWithAnimals();
+        fillIslandWithGrass();
     }
 
     private void fillIslandWithCells() {
@@ -43,14 +47,33 @@ public class Island {
     }
 
     private void fillIslandWithAnimals() {
-        IslandSettings islandSettings = SettingsManager.getSettings().getIslandSettings();
-        for (Class<? extends Animal> animal : islandSettings.islandResidents) {
-            HashSet<Animal> set = new HashSet<>();
-            for (int i = 0; i < 10; i++) {
-                AnimalFactory factory = new AnimalFactory();
-                set.add(factory.createAnimal(Animals.WOLF));
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[0].length; j++) {
+                fillOneCellWithAnimals(field[i][j]);
             }
-            field[0][0].inhabitants.put(animal, set);
+        }
+    }
+
+    private void fillOneCellWithAnimals(Cell cell) {
+        IslandSettings islandSettings = SettingsManager.getSettings().getIslandSettings();
+        AnimalFactory factory = new AnimalFactory();
+        for (Animals animal : islandSettings.islandResidents) {
+            HashSet<Animal> set = new HashSet<>();
+            int maxAnimalPopulation = islandSettings.maxCellPopulation.get(animal);
+            int animalsCountOnCell = RandomGenerator.getRandomInt(maxAnimalPopulation);
+            for (int i = 0; i < animalsCountOnCell; i++) {
+                set.add(factory.createAnimal(animal));
+            }
+            cell.inhabitants.put(animal.getAnimalClass(), set);
+        }
+    }
+
+    private void fillIslandWithGrass() {
+        GrassFactory grassFactory = new GrassFactory();
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[0].length; j++) {
+                field[i][j].grass = grassFactory.createGrass();
+            }
         }
     }
 

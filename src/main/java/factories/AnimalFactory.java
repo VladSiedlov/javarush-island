@@ -17,7 +17,7 @@ public class AnimalFactory {
         AnimalSettings resultAnimalSettings = SettingsManager.
                 getSettings().
                 getAnimalsSettings().
-                getSettingsForAnimal(resultAnimal.getClass());
+                getSettingsForAnimal(animal);
 
         resultAnimal.weight = resultAnimalSettings.maxWeight;
         return resultAnimal;

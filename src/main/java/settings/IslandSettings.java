@@ -1,6 +1,7 @@
 package settings;
 
-import abstraction.Animal;
+import animals.Animals;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -9,7 +10,8 @@ import java.util.Set;
 public class IslandSettings {
     public int height;
     public int length;
-    public int maxGrassOnCell;
-    public Set<Class<? extends Animal>> islandResidents = new HashSet<>();
-    public Map<Class<? extends Animal>, Integer> maxCellPopulation = new HashMap<>();
+    public int maxGrassQuantityOnCell;
+    public double grassWeight;
+    public Set<Animals> islandResidents = new HashSet<>();
+    public Map<Animals, Integer> maxCellPopulation = new HashMap<>();
 }

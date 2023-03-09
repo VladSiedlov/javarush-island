@@ -1,24 +1,29 @@
 import animals.Animals;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import factories.AnimalFactory;
 import managers.SettingsManager;
 import model.Island;
+import settings.IslandSettings;
+import utils.RandomGenerator;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        IslandSettings islandSettings = new IslandSettings();
 //        islandSettings.height = 20;
 //        islandSettings.length = 100;
 //        islandSettings.maxGrassOnCell = 200;
-//        islandSettings.maxCellPopulation.put(Wolf.class, 30);
-//        islandSettings.maxCellPopulation.put(Sheep.class, 140);
-//        islandSettings.islandResidents.add(Wolf.class);
-//        islandSettings.islandResidents.add(Sheep.class);
+//        islandSettings.maxCellPopulation.put(Animals.WOLF, 30);
+//        islandSettings.maxCellPopulation.put(Animals.SHEEP, 140);
+//        islandSettings.islandResidents.add(Animals.WOLF);
+//        islandSettings.islandResidents.add(Animals.SHEEP);
 //        ObjectMapper mapper = new ObjectMapper();
 //        mapper.enable(SerializationFeature.INDENT_OUTPUT);
 //        mapper.writeValue(new File("src/main/resources/IslandSettings.json"), islandSettings);
-//        System.out.println(islandSettings.maxCellPopulation.get(Wolf.class));
+//        System.out.println(islandSettings.maxCellPopulation.get(Animals.WOLF));
 //
 //        IslandSettings islandSettingsread = mapper.readValue(new File("src/main/resources/IslandSettings.json"), IslandSettings.class);
 //        System.out.println(islandSettingsread.length);
@@ -35,9 +40,9 @@ public class Application {
 //        animalsSettings.animalSettingsMap.put(Wolf.class, wolfSettings);
 //        animalsSettings.animalSettingsMap.put(Sheep.class, sheepSettings);
 //        mapper.writeValue(new File("src/main/resources/AnimalsSettings.json"), animalsSettings);
-        SettingsManager settingsManager = SettingsManager.getSettings();
-        System.out.println(settingsManager.getAnimalsSettings());
-        System.out.println(new AnimalFactory().createAnimal(Animals.WOLF));
+//        SettingsManager settingsManager = SettingsManager.getSettings();
+//        System.out.println(settingsManager.getAnimalsSettings());
+//        System.out.println(new AnimalFactory().createAnimal(Animals.WOLF));
         Island island = new Island();
         island.initializeIsland();
         System.out.println("wow");
