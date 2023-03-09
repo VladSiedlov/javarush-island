@@ -9,7 +9,9 @@ import plants.Grass;
 import settings.IslandSettings;
 import utils.RandomGenerator;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class Island {
     public Cell[][] field;
@@ -58,13 +60,13 @@ public class Island {
         IslandSettings islandSettings = SettingsManager.getSettings().getIslandSettings();
         AnimalFactory factory = new AnimalFactory();
         for (Animals animal : islandSettings.islandResidents) {
-            HashSet<Animal> set = new HashSet<>();
+            List<Animal> list = new ArrayList<>();
             int maxAnimalPopulation = islandSettings.maxCellPopulation.get(animal);
             int animalsCountOnCell = RandomGenerator.getRandomInt(maxAnimalPopulation);
             for (int i = 0; i < animalsCountOnCell; i++) {
-                set.add(factory.createAnimal(animal));
+                list.add(factory.createAnimal(animal, cell));
             }
-            cell.inhabitants.put(animal.getAnimalClass(), set);
+            cell.inhabitants.put(animal.getAnimalClass(), list);
         }
     }
 

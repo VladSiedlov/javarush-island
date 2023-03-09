@@ -14,4 +14,5 @@ public class IslandSettings {
     public double grassWeight;
     public Set<Animals> islandResidents = new HashSet<>();
     public Map<Animals, Integer> maxCellPopulation = new HashMap<>();
+
 }

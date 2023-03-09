@@ -1,14 +1,17 @@
 import animals.Animals;
+import animals.carnivores.Wolf;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import factories.AnimalFactory;
 import managers.SettingsManager;
+import model.GameEngine;
 import model.Island;
 import settings.IslandSettings;
 import utils.RandomGenerator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Application {
     public static void main(String[] args) throws IOException {
@@ -43,8 +46,11 @@ public class Application {
 //        SettingsManager settingsManager = SettingsManager.getSettings();
 //        System.out.println(settingsManager.getAnimalsSettings());
 //        System.out.println(new AnimalFactory().createAnimal(Animals.WOLF));
-        Island island = new Island();
-        island.initializeIsland();
+
+
+
+        GameEngine gameEngine = new GameEngine();
+        gameEngine.startGame();
         System.out.println("wow");
     }
 }

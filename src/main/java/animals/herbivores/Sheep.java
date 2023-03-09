@@ -19,6 +19,11 @@ public class Sheep extends Herbivore {
     }
 
     @Override
+    public void starve() {
+
+    }
+
+    @Override
     public void reproduce() {
 
     }
