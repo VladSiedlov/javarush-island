@@ -1,35 +1,12 @@
 package animals.herbivores;
 
 import abstraction.Herbivore;
+import animals.Animals;
 
 public class Sheep extends Herbivore {
-    @Override
-    public void eat() {
 
+    public Sheep() {
+        enumValue = Animals.SHEEP;
     }
 
-    @Override
-    public void move() {
-
-    }
-
-    @Override
-    public void breed() {
-
-    }
-
-    @Override
-    public void starve() {
-
-    }
-
-    @Override
-    public void reproduce() {
-
-    }
-
-    @Override
-    public void die() {
-
-    }
 }

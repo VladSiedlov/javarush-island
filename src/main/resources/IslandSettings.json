@@ -3,9 +3,14 @@
   "length" : 100,
   "maxGrassQuantityOnCell" : 200,
   "grassWeight" : 1.0,
-  "islandResidents" : [ "WOLF" ],
+  "islandResidents" : [ "WOLF" , "SHEEP", "SNAKE", "HORSE", "DEER", "RABBIT", "MOUSE"],
   "maxCellPopulation" : {
     "WOLF" : 30,
-    "SHEEP" : 140
+    "SHEEP" : 140,
+    "SNAKE" : 30,
+    "HORSE" : 20,
+    "DEER" : 20,
+    "RABBIT" : 150,
+    "MOUSE" : 500
   }
 }

@@ -12,6 +12,7 @@ import utils.RandomGenerator;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Island {
     public Cell[][] field;
@@ -60,7 +61,7 @@ public class Island {
         IslandSettings islandSettings = SettingsManager.getSettings().getIslandSettings();
         AnimalFactory factory = new AnimalFactory();
         for (Animals animal : islandSettings.islandResidents) {
-            List<Animal> list = new ArrayList<>();
+            Set<Animal> list = new HashSet<>();
             int maxAnimalPopulation = islandSettings.maxCellPopulation.get(animal);
             int animalsCountOnCell = RandomGenerator.getRandomInt(maxAnimalPopulation);
             for (int i = 0; i < animalsCountOnCell; i++) {

@@ -1,5 +1,22 @@
 package abstraction;
 
-public abstract class Carnivore extends Animal {
+import managers.SettingsManager;
+import settings.AnimalSettings;
 
+import java.util.Set;
+
+public abstract class Carnivore extends Animal {
+    @Override
+    public void eat() {
+        AnimalSettings settings = SettingsManager.getSettings().
+                getAnimalsSettings().
+                getSettingsForAnimal(this.getClass());
+        Set<Class<? extends Entity>> targets = settings.eatProbability.keySet();
+        Class<? extends Entity> target = targets.iterator().next();
+        Set<? extends Entity> animalsForFood = location.inhabitants.get(target);
+        if (!animalsForFood.isEmpty()) {
+            animalsForFood.iterator().next().die();
+            weight +=10; //kek
+        }
+    }
 }

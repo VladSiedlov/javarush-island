@@ -3,10 +3,9 @@ package model;
 import abstraction.Animal;
 import animals.Animals;
 import managers.*;
-import settings.IslandSettings;
-import view.StatisticsPrinter;
-
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class GameEngine {
@@ -18,53 +17,92 @@ public class GameEngine {
 
     public void startGame() {
         island.initializeIsland();
-//        int countdown = 10;
-//        while (countdown > 0) {
-//            makeMoves();
-//            doEating();
-//            doReproduction();
-//            doStarving();
-//            checkGameOver();
-//            printStatistics();
-//        }
-        makeMoves();
+        for (int i = 0; i < 10; i++) {
+            makeMoves();
+            doEating();
+            doReproduction();
+            doStarving();
+            checkGameOver();
+            printStatistics();
+        }
     }
 
 
     public void makeMoves() {
-        //MovingManager movingManager = new MovingManager();
         for (Cell[] column : island.field) {
             for (Cell cell : column) {
                 for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
-                    List<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
-                    for (int i = 0; i < animals.size(); i++) {
-                        animals.get(i).move();
+                    Set<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
+                    Set<Animal> copy = new HashSet<>(animals);
+                    for (Animal animal : copy) {
+                        animal.move();
                     }
-                    //TODO
                 }
             }
         }
     }
 
 
-
     private void doEating() {
-        EatingManager eatingManager = new EatingManager();
+        for (Cell[] column : island.field) {
+            for (Cell cell : column) {
+                for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+                    Set<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
+                    Set<Animal> copy = new HashSet<>(animals);
+                    for (Animal animal : copy) {
+                        animal.eat();
+                    }
+                }
+            }
+        }
     }
 
     private void doReproduction() {
-        BreedingManager breedingManager = new BreedingManager();
-        GrowManager growManager = new GrowManager();
+        for (Cell[] column : island.field) {
+            for (Cell cell : column) {
+                for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+                    Set<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
+                    Set<Animal> copy = new HashSet<>(animals);
+                    for (Animal animal : copy) {
+                        animal.reproduce();
+                    }
+                }
+            }
+        }
     }
 
     private void doStarving() {
-        StarvingManager starvingManager = new StarvingManager();
+        for (Cell[] column : island.field) {
+            for (Cell cell : column) {
+                for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+                    Set<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
+                    Set<Animal> copy = new HashSet<>(animals);
+                    for (Animal animal : copy) {
+                        animal.starve();
+                    }
+                }
+            }
+        }
     }
 
     private void checkGameOver() {
     }
 
     private void printStatistics() {
-        StatisticsPrinter statisticsPrinter = new StatisticsPrinter();
+        Map<Animals, Integer> population = new HashMap<>();
+        for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+            population.put(type, 0);
+        }
+
+        for (Cell[] column : island.field) {
+            for (Cell cell : column) {
+                for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+                    Set<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
+                    population.replace(type, population.get(type) + animals.size());
+                }
+            }
+        }
+
+        System.out.println(population);
     }
 }
