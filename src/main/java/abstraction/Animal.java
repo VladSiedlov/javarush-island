@@ -12,15 +12,12 @@ import utils.RandomGenerator;
 import java.util.Set;
 
 public abstract class Animal extends Entity implements Movable, Breedable {
+    public AnimalSettings settings;
     public Cell location;
     public Animals enumValue;
     private boolean isBreadedThisTurn = false;
 
     public void move() {
-        isBreadedThisTurn = false;
-        AnimalSettings settings = SettingsManager.getSettings().
-                getAnimalsSettings().
-                getSettingsForAnimal(this.getClass());
         int maxSpeed = settings.maxSpeed;
         int currentSpeed = RandomGenerator.getRandomInt(maxSpeed + 1);
         for (int i = 0; i < currentSpeed; i++) {
@@ -33,6 +30,7 @@ public abstract class Animal extends Entity implements Movable, Breedable {
                 location.inhabitants.get(this.getClass()).add(this);
             }
         }
+        isBreadedThisTurn = false; //reset breed flag
     }
 
     public abstract void eat();
@@ -45,10 +43,10 @@ public abstract class Animal extends Entity implements Movable, Breedable {
     }
 
     public void breed() {
-        Set<Animal> mates = location.inhabitants.get(this.getClass());
-        if (mates.size() > 1) {
-            Animal mate = mates.iterator().next();
-            if (!mate.isBreadedThisTurn) {
+        Set<Animal> breedingMates = location.inhabitants.get(this.getClass());
+        if (breedingMates.size() > 1) {
+            Animal mate = RandomGenerator.getRandomAnimalFromSet(breedingMates);
+            if (mate != this && !mate.isBreadedThisTurn) {
                 mate.isBreadedThisTurn = true;
                 AnimalFactory animalFactory = new AnimalFactory();
                 animalFactory.createAnimal(enumValue, location);
@@ -58,9 +56,6 @@ public abstract class Animal extends Entity implements Movable, Breedable {
     }
 
     public void starve() {
-        AnimalSettings settings = SettingsManager.getSettings().
-                getAnimalsSettings().
-                getSettingsForAnimal(this.getClass());
         weight = weight - (settings.maxWeight * RandomGenerator.getRandomDouble(0.3));
         if (weight < 0) {
             die();

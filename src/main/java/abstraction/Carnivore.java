@@ -11,9 +11,9 @@ public abstract class Carnivore extends Animal {
         AnimalSettings settings = SettingsManager.getSettings().
                 getAnimalsSettings().
                 getSettingsForAnimal(this.getClass());
-        Set<Class<? extends Entity>> targets = settings.eatProbability.keySet();
-        Class<? extends Entity> target = targets.iterator().next();
-        Set<? extends Entity> animalsForFood = location.inhabitants.get(target);
+        Set<Class<? extends Entity>> eatingTargets = settings.eatProbability.keySet();
+        Class<? extends Entity> targetToEat = eatingTargets.iterator().next();
+        Set<? extends Entity> animalsForFood = location.inhabitants.get(targetToEat);
         if (!animalsForFood.isEmpty()) {
             animalsForFood.iterator().next().die();
             weight +=10; //kek

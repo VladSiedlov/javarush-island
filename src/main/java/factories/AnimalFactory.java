@@ -21,12 +21,11 @@ public class AnimalFactory {
             case RABBIT -> resultAnimal = new Rabbit();
             case MOUSE -> resultAnimal = new Mouse();
         }
-        AnimalSettings resultAnimalSettings = SettingsManager.
+        resultAnimal.settings = SettingsManager.
                 getSettings().
                 getAnimalsSettings().
                 getSettingsForAnimal(animal);
-
-        resultAnimal.weight = resultAnimalSettings.maxWeight;
+        resultAnimal.weight = resultAnimal.settings.maxWeight;
         resultAnimal.location = location;
         return resultAnimal;
     }
