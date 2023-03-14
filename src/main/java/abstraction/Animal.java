@@ -7,6 +7,7 @@ import factories.AnimalFactory;
 import managers.SettingsManager;
 import model.Cell;
 import settings.AnimalSettings;
+import settings.IslandSettings;
 import utils.RandomGenerator;
 
 import java.util.Set;
@@ -43,13 +44,15 @@ public abstract class Animal extends Entity implements Movable, Breedable {
     }
 
     public void breed() {
+        IslandSettings islandSettings = SettingsManager.getSettings().getIslandSettings();
+        int maxPopulationOnSell = islandSettings.maxCellPopulation.get(this.enumValue);
         Set<Animal> breedingMates = location.inhabitants.get(this.getClass());
-        if (breedingMates.size() > 1) {
-            Animal mate = RandomGenerator.getRandomAnimalFromSet(breedingMates);
+        if (breedingMates.size() > 1 && breedingMates.size() < maxPopulationOnSell) {
+            Animal mate = RandomGenerator.getRandomElementFromSet(breedingMates);
             if (mate != this && !mate.isBreadedThisTurn) {
                 mate.isBreadedThisTurn = true;
                 AnimalFactory animalFactory = new AnimalFactory();
-                animalFactory.createAnimal(enumValue, location);
+                breedingMates.add(animalFactory.createAnimal(enumValue, location));
             }
         }
         isBreadedThisTurn = true;
@@ -62,7 +65,6 @@ public abstract class Animal extends Entity implements Movable, Breedable {
         }
     }
 
-    @Override
     public void die() {
         location.inhabitants.get(this.getClass()).remove(this);
     }

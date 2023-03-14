@@ -1,7 +1,5 @@
 package utils;
 
-import abstraction.Animal;
-
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -17,7 +15,7 @@ public class RandomGenerator {
         return threadLocalRandom.nextDouble(max);
     }
 
-    public static Animal getRandomAnimalFromSet(Set<Animal> animals) {
+    public static <T> T getRandomElementFromSet(Set<T> animals) {
         return animals.stream().
                 skip(threadLocalRandom.nextInt(animals.size())).
                 findAny().

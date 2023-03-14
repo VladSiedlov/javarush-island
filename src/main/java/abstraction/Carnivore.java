@@ -1,22 +1,17 @@
 package abstraction;
-
-import managers.SettingsManager;
-import settings.AnimalSettings;
-
+import utils.RandomGenerator;
 import java.util.Set;
 
 public abstract class Carnivore extends Animal {
     @Override
     public void eat() {
-        AnimalSettings settings = SettingsManager.getSettings().
-                getAnimalsSettings().
-                getSettingsForAnimal(this.getClass());
         Set<Class<? extends Entity>> eatingTargets = settings.eatProbability.keySet();
-        Class<? extends Entity> targetToEat = eatingTargets.iterator().next();
+        Class<? extends Entity> targetToEat = RandomGenerator.getRandomElementFromSet(eatingTargets);
         Set<? extends Entity> animalsForFood = location.inhabitants.get(targetToEat);
         if (!animalsForFood.isEmpty()) {
-            animalsForFood.iterator().next().die();
-            weight +=10; //kek
+            Animal animalForFood = (Animal) RandomGenerator.getRandomElementFromSet(animalsForFood);
+            weight = Math.min(weight + animalForFood.weight, settings.maxWeight);
+            animalForFood.die();
         }
     }
 }
