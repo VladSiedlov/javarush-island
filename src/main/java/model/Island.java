@@ -5,13 +5,9 @@ import animals.Animals;
 import factories.AnimalFactory;
 import factories.GrassFactory;
 import managers.SettingsManager;
-import plants.Grass;
 import settings.IslandSettings;
 import utils.RandomGenerator;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Island {
@@ -50,9 +46,9 @@ public class Island {
     }
 
     private void fillIslandWithAnimals() {
-        for (int i = 0; i < field.length; i++) {
+        for (Cell[] cells : field) {
             for (int j = 0; j < field[0].length; j++) {
-                fillOneCellWithAnimals(field[i][j]);
+                fillOneCellWithAnimals(cells[j]);
             }
         }
     }
@@ -73,11 +69,10 @@ public class Island {
 
     private void fillIslandWithGrass() {
         GrassFactory grassFactory = new GrassFactory();
-        for (int i = 0; i < field.length; i++) {
+        for (Cell[] cells : field) {
             for (int j = 0; j < field[0].length; j++) {
-                field[i][j].grass = grassFactory.createGrass();
+                cells[j].grass = grassFactory.createGrass();
             }
         }
     }
-
 }

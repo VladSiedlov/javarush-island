@@ -3,13 +3,17 @@ package model;
 import abstraction.Animal;
 import animals.Animals;
 import managers.*;
+import settings.IslandSettings;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class GameEngine {
-    private Island island;
+    private final Island island;
 
     public GameEngine() {
         island = new Island();
@@ -17,10 +21,11 @@ public class GameEngine {
 
     public void startGame() {
         island.initializeIsland();
-        for (int i = 0; i < 30; i++) {
+        startGrassGrowing();
+        for (int i = 0; i < 10; i++) {
             makeMoves();
             doEating();
-            //doReproduction();
+            doReproduction();
             doStarving();
             checkGameOver();
             printStatistics();
@@ -104,5 +109,15 @@ public class GameEngine {
         }
 
         System.out.println(population);
+    }
+
+    private void startGrassGrowing() {
+        IslandSettings islandSettings = SettingsManager.getSettings().getIslandSettings();
+        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(4);
+        for (Cell[] column : island.field) {
+            for (Cell cell : column) {
+                scheduledThreadPoolExecutor.scheduleAtFixedRate(cell.grass, 0, islandSettings.grassReproductionPeriod, TimeUnit.MILLISECONDS);
+            }
+        }
     }
 }

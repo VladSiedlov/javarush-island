@@ -51,8 +51,10 @@ public abstract class Animal extends Entity implements Movable, Breedable {
             Animal mate = RandomGenerator.getRandomElementFromSet(breedingMates);
             if (mate != this && !mate.isBreadedThisTurn) {
                 mate.isBreadedThisTurn = true;
-                AnimalFactory animalFactory = new AnimalFactory();
-                breedingMates.add(animalFactory.createAnimal(enumValue, location));
+                if (RandomGenerator.getRandomInt(10) > 7) {
+                    AnimalFactory animalFactory = new AnimalFactory();
+                    breedingMates.add(animalFactory.createAnimal(enumValue, location));
+                }
             }
         }
         isBreadedThisTurn = true;

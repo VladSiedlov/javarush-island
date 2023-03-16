@@ -7,7 +7,6 @@ import animals.carnivores.Wolf;
 import animals.herbivores.*;
 import managers.SettingsManager;
 import model.Cell;
-import settings.AnimalSettings;
 
 public class AnimalFactory {
     public Animal createAnimal(Animals animal, Cell location) {

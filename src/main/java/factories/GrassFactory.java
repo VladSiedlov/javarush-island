@@ -1,7 +1,6 @@
 package factories;
 
 import managers.SettingsManager;
-import model.Cell;
 import plants.Grass;
 import settings.IslandSettings;
 import utils.RandomGenerator;
