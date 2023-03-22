@@ -8,6 +8,7 @@ Main features:
 - Settings from Json files loads only once for avoiding future file loading
 - All animals inherited from higher abstraction described in /abstraction folder
 - `Eat()` method of herbivores Duck, Boar and Mouse overrided to make them able to eat Caterpillars and some other herbivores
+- Grass growing realised using `multithreading` 
 
 Configuration location
 ----------
