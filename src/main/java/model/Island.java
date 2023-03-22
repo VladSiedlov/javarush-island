@@ -11,7 +11,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Island {
+    private final IslandSettings islandSettings;
     public Cell[][] field;
+
+    public Island() {
+        islandSettings = SettingsManager.getSettings().getIslandSettings();
+    }
 
     public void initializeIsland() {
         fillIslandWithCells();
@@ -21,7 +26,6 @@ public class Island {
     }
 
     private void fillIslandWithCells() {
-        IslandSettings islandSettings = SettingsManager.getSettings().getIslandSettings();
         field = new Cell[islandSettings.length][islandSettings.height];
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[0].length; j++) {
@@ -54,7 +58,6 @@ public class Island {
     }
 
     private void fillOneCellWithAnimals(Cell cell) {
-        IslandSettings islandSettings = SettingsManager.getSettings().getIslandSettings();
         AnimalFactory factory = new AnimalFactory();
         for (Animals animal : islandSettings.islandResidents) {
             Set<Animal> list = new HashSet<>();
@@ -74,5 +77,9 @@ public class Island {
                 cells[j].grass = grassFactory.createGrass();
             }
         }
+    }
+
+    public IslandSettings getIslandSettings() {
+        return islandSettings;
     }
 }

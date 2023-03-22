@@ -11,19 +11,55 @@
         "animals.herbivores.Horse" : 10
       }
     },
-    "animals.herbivores.Sheep" : {
-      "maxWeight" : 70.0,
-      "maxSpeed" : 3,
-      "eatProbability" : {
-        "plants.Grass" : 100
-      }
-    },
     "animals.carnivores.Snake" : {
       "maxWeight" : 15.0,
       "maxSpeed" : 1,
       "eatProbability" : {
         "animals.herbivores.Rabbit" : 20,
         "animals.herbivores.Mouse" : 40
+      }
+    },
+    "animals.carnivores.Bear" : {
+      "maxWeight" : 500,
+      "maxSpeed" : 2,
+      "eatProbability" : {
+        "animals.carnivores.Snake" : 80,
+        "animals.herbivores.Horse" : 40,
+        "animals.herbivores.Deer" : 80,
+        "animals.herbivores.Rabbit" : 80,
+        "animals.herbivores.Mouse" : 90,
+        "animals.herbivores.Goat" : 70,
+        "animals.herbivores.Sheep" : 70,
+        "animals.herbivores.Boar" : 50,
+        "animals.herbivores.Buffalo" : 20,
+        "animals.herbivores.Duck" : 10
+      }
+    },
+    "animals.carnivores.Eagle" : {
+      "maxWeight" : 6,
+      "maxSpeed" : 3,
+      "eatProbability" : {
+        "animals.carnivores.Fox" : 10,
+        "animals.herbivores.Rabbit" : 90,
+        "animals.herbivores.Mouse" : 90,
+        "animals.herbivores.Duck" : 80
+      }
+    },
+    "animals.carnivores.Fox" : {
+      "maxWeight" : 8,
+      "maxSpeed" : 2,
+      "eatProbability" : {
+        "animals.herbivores.Rabbit" : 70,
+        "animals.herbivores.Mouse" : 90,
+        "animals.herbivores.Duck" : 60,
+        "animals.herbivores.Caterpillar" : 40
+      }
+    },
+    "animals.herbivores.Sheep" : {
+      "maxWeight" : 70.0,
+      "maxSpeed" : 3,
+      "eatProbability" : {
+        "plants.Grass" : 100
       }
     },
     "animals.herbivores.Horse" : {
@@ -50,6 +86,45 @@
     "animals.herbivores.Mouse" : {
       "maxWeight" : 0.05,
       "maxSpeed" : 1,
+      "eatProbability" : {
+        "animals.herbivores.Caterpillar" : 90,
+        "plants.Grass" : 100
+      }
+    },
+    "animals.herbivores.Boar" : {
+      "maxWeight" : 400,
+      "maxSpeed" : 2,
+      "eatProbability" : {
+        "animals.herbivores.Mouse" : 50,
+        "animals.herbivores.Caterpillar" : 90,
+        "plants.Grass" : 100
+      }
+    },
+    "animals.herbivores.Buffalo" : {
+      "maxWeight" : 700,
+      "maxSpeed" : 3,
+      "eatProbability" : {
+        "plants.Grass" : 100
+      }
+    },
+    "animals.herbivores.Caterpillar" : {
+      "maxWeight" : 0.01,
+      "maxSpeed" : 0,
+      "eatProbability" : {
+        "plants.Grass" : 100
+      }
+    },
+    "animals.herbivores.Duck" : {
+      "maxWeight" : 1,
+      "maxSpeed" : 4,
+      "eatProbability" : {
+        "animals.herbivores.Caterpillar" : 90,
+        "plants.Grass" : 100
+      }
+    },
+    "animals.herbivores.Goat" : {
+      "maxWeight" : 60,
+      "maxSpeed" : 3,
       "eatProbability" : {
         "plants.Grass" : 100
       }

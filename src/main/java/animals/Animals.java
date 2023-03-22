@@ -1,8 +1,7 @@
 package animals;
 
 import abstraction.Animal;
-import animals.carnivores.Snake;
-import animals.carnivores.Wolf;
+import animals.carnivores.*;
 import animals.herbivores.*;
 
 public enum Animals {
@@ -12,8 +11,15 @@ public enum Animals {
     HORSE(Horse.class),
     DEER(Deer.class),
     RABBIT(Rabbit.class),
-    MOUSE(Mouse.class);
-
+    MOUSE(Mouse.class),
+    BEAR(Bear.class),
+    EAGLE(Eagle.class),
+    FOX(Fox.class),
+    BOAR(Boar.class),
+    BUFFALO(Buffalo.class),
+    CATERPILLAR(Caterpillar.class),
+    DUCK(Duck.class),
+    GOAT(Goat.class);
 
     private final Class<? extends Animal> animalClass;
 

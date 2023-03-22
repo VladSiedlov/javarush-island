@@ -4,14 +4,23 @@
   "maxGrassQuantityOnCell" : 200,
   "grassWeight" : 1.0,
   "grassReproductionPeriod" : 10,
-  "islandResidents" : [ "WOLF" , "SNAKE", "SHEEP", "HORSE", "DEER", "RABBIT", "MOUSE"],
+  "islandResidents" : [ "WOLF" , "SNAKE", "BEAR", "EAGLE", "FOX", "SHEEP", "HORSE", "DEER", "RABBIT", "MOUSE", "BOAR", "BUFFALO", "CATERPILLAR", "DUCK", "GOAT"],
+  "simulationIterationsCount": 20,
   "maxCellPopulation" : {
     "WOLF" : 30,
-    "SHEEP" : 140,
     "SNAKE" : 30,
+    "BEAR" : 5,
+    "EAGLE" : 20,
+    "FOX" : 30,
+    "SHEEP" : 140,
     "HORSE" : 20,
     "DEER" : 20,
     "RABBIT" : 150,
-    "MOUSE" : 500
+    "MOUSE" : 500,
+    "BOAR" : 50,
+    "BUFFALO" : 10,
+    "CATERPILLAR" : 1000,
+    "DUCK" : 200,
+    "GOAT" : 140
   }
 }

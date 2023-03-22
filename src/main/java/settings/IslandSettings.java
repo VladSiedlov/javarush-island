@@ -13,6 +13,7 @@ public class IslandSettings {
     public int maxGrassQuantityOnCell;
     public double grassWeight;
     public int grassReproductionPeriod;
+    public int simulationIterationsCount;
     public Set<Animals> islandResidents = new HashSet<>();
     public Map<Animals, Integer> maxCellPopulation = new HashMap<>();
 

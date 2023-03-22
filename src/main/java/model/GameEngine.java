@@ -2,8 +2,6 @@ package model;
 
 import abstraction.Animal;
 import animals.Animals;
-import managers.*;
-import settings.IslandSettings;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class GameEngine {
     private final Island island;
+    private final ScheduledThreadPoolExecutor grassGrowingExecutor = new ScheduledThreadPoolExecutor(4);
 
     public GameEngine() {
         island = new Island();
@@ -22,21 +21,21 @@ public class GameEngine {
     public void startGame() {
         island.initializeIsland();
         startGrassGrowing();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < island.getIslandSettings().simulationIterationsCount; i++) {
             makeMoves();
             doEating();
             doReproduction();
             doStarving();
-            checkGameOver();
             printStatistics();
         }
+        stopGrassGrowing();
     }
 
 
     public void makeMoves() {
         for (Cell[] column : island.field) {
             for (Cell cell : column) {
-                for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+                for (Animals type : island.getIslandSettings().islandResidents) {
                     Set<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
                     Set<Animal> copy = new HashSet<>(animals);
                     for (Animal animal : copy) {
@@ -51,7 +50,7 @@ public class GameEngine {
     private void doEating() {
         for (Cell[] column : island.field) {
             for (Cell cell : column) {
-                for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+                for (Animals type : island.getIslandSettings().islandResidents) {
                     Set<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
                     Set<Animal> copy = new HashSet<>(animals);
                     for (Animal animal : copy) {
@@ -65,7 +64,7 @@ public class GameEngine {
     private void doReproduction() {
         for (Cell[] column : island.field) {
             for (Cell cell : column) {
-                for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+                for (Animals type : island.getIslandSettings().islandResidents) {
                     Set<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
                     Set<Animal> copy = new HashSet<>(animals);
                     for (Animal animal : copy) {
@@ -79,7 +78,7 @@ public class GameEngine {
     private void doStarving() {
         for (Cell[] column : island.field) {
             for (Cell cell : column) {
-                for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+                for (Animals type : island.getIslandSettings().islandResidents) {
                     Set<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
                     Set<Animal> copy = new HashSet<>(animals);
                     for (Animal animal : copy) {
@@ -90,18 +89,15 @@ public class GameEngine {
         }
     }
 
-    private void checkGameOver() {
-    }
-
     private void printStatistics() {
         Map<Animals, Integer> population = new HashMap<>();
-        for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+        for (Animals type : island.getIslandSettings().islandResidents) {
             population.put(type, 0);
         }
 
         for (Cell[] column : island.field) {
             for (Cell cell : column) {
-                for (Animals type : SettingsManager.getSettings().getIslandSettings().islandResidents) {
+                for (Animals type : island.getIslandSettings().islandResidents) {
                     Set<Animal> animals = cell.inhabitants.get(type.getAnimalClass());
                     population.replace(type, population.get(type) + animals.size());
                 }
@@ -112,12 +108,14 @@ public class GameEngine {
     }
 
     private void startGrassGrowing() {
-        IslandSettings islandSettings = SettingsManager.getSettings().getIslandSettings();
-        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(4);
         for (Cell[] column : island.field) {
             for (Cell cell : column) {
-                scheduledThreadPoolExecutor.scheduleAtFixedRate(cell.grass, 0, islandSettings.grassReproductionPeriod, TimeUnit.MILLISECONDS);
+                grassGrowingExecutor.scheduleAtFixedRate(cell.grass, 0, island.getIslandSettings().grassReproductionPeriod, TimeUnit.MILLISECONDS);
             }
         }
+    }
+
+    private void stopGrassGrowing() {
+        grassGrowingExecutor.shutdownNow();
     }
 }
